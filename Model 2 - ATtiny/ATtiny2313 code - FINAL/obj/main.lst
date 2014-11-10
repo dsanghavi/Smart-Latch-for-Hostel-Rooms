@@ -1,0 +1,257 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	delay_ms
+  18               	delay_ms:
+  19               	.LFB2:
+  20               	.LM1:
+  21               	.LVL0:
+  22 0000 DF93      		push r29
+  23 0002 CF93      		push r28
+  24 0004 00D0      		rcall .
+  25 0006 CDB7      		in r28,__SP_L__
+  26 0008 DEB7      		in r29,__SP_H__
+  27               	/* prologue: function */
+  28               	/* frame size = 2 */
+  29 000a 282F      		mov r18,r24
+  30 000c 00C0      		rjmp .L2
+  31               	.LVL1:
+  32               	.L5:
+  33               	.LM2:
+  34 000e 1A82      		std Y+2,__zero_reg__
+  35 0010 1982      		std Y+1,__zero_reg__
+  36               	.LVL2:
+  37 0012 00C0      		rjmp .L3
+  38               	.LVL3:
+  39               	.L4:
+  40 0014 8981      		ldd r24,Y+1
+  41 0016 9A81      		ldd r25,Y+2
+  42 0018 0196      		adiw r24,1
+  43 001a 9A83      		std Y+2,r25
+  44 001c 8983      		std Y+1,r24
+  45               	.LVL4:
+  46               	.L3:
+  47 001e 8981      		ldd r24,Y+1
+  48 0020 9A81      		ldd r25,Y+2
+  49 0022 895C      		subi r24,lo8(457)
+  50 0024 9140      		sbci r25,hi8(457)
+  51 0026 01F4      		brne .L4
+  52               	.LM3:
+  53 0028 2150      		subi r18,lo8(-(-1))
+  54               	.LVL5:
+  55               	.L2:
+  56               	.LM4:
+  57 002a 2223      		tst r18
+  58 002c 01F4      		brne .L5
+  59               	/* epilogue start */
+  60               	.LM5:
+  61 002e 0F90      		pop __tmp_reg__
+  62 0030 0F90      		pop __tmp_reg__
+  63 0032 CF91      		pop r28
+  64 0034 DF91      		pop r29
+  65 0036 0895      		ret
+  66               	.LFE2:
+  68               	.global	switchOn
+  70               	switchOn:
+  71               	.LFB3:
+  72               	.LM6:
+  73               	/* prologue: function */
+  74               	/* frame size = 0 */
+  75               	.LM7:
+  76 0038 969A      		sbi 50-32,6
+  77               	.LM8:
+  78 003a 959A      		sbi 50-32,5
+  79               	/* epilogue start */
+  80               	.LM9:
+  81 003c 0895      		ret
+  82               	.LFE3:
+  84               	.global	switchOff
+  86               	switchOff:
+  87               	.LFB4:
+  88               	.LM10:
+  89               	/* prologue: function */
+  90               	/* frame size = 0 */
+  91               	.LM11:
+  92 003e 9698      		cbi 50-32,6
+  93               	.LM12:
+  94 0040 9598      		cbi 50-32,5
+  95               	/* epilogue start */
+  96               	.LM13:
+  97 0042 0895      		ret
+  98               	.LFE4:
+ 100               	.global	resetPressed
+ 102               	resetPressed:
+ 103               	.LFB5:
+ 104               	.LM14:
+ 105               	/* prologue: function */
+ 106               	/* frame size = 0 */
+ 107               	.LBB16:
+ 108               	.LBB17:
+ 109               	.LM15:
+ 110 0044 9698      		cbi 50-32,6
+ 111               	.LM16:
+ 112 0046 9598      		cbi 50-32,5
+ 113               	.LBE17:
+ 114               	.LBE16:
+ 115               	.LM17:
+ 116 0048 84EF      		ldi r24,lo8(-12)
+ 117 004a 00D0      		rcall delay_ms
+ 118               	.LBB18:
+ 119               	.LBB19:
+ 120               	.LM18:
+ 121 004c 969A      		sbi 50-32,6
+ 122               	.LM19:
+ 123 004e 959A      		sbi 50-32,5
+ 124               	.LBE19:
+ 125               	.LBE18:
+ 126               	.LM20:
+ 127 0050 84EF      		ldi r24,lo8(-12)
+ 128 0052 00D0      		rcall delay_ms
+ 129               	.LBB20:
+ 130               	.LBB21:
+ 131               	.LM21:
+ 132 0054 9698      		cbi 50-32,6
+ 133               	.LM22:
+ 134 0056 9598      		cbi 50-32,5
+ 135               	.LBE21:
+ 136               	.LBE20:
+ 137               	.LM23:
+ 138 0058 84EF      		ldi r24,lo8(-12)
+ 139 005a 00D0      		rcall delay_ms
+ 140               	.LBB22:
+ 141               	.LBB23:
+ 142               	.LM24:
+ 143 005c 969A      		sbi 50-32,6
+ 144               	.LM25:
+ 145 005e 959A      		sbi 50-32,5
+ 146               	/* epilogue start */
+ 147               	.LBE23:
+ 148               	.LBE22:
+ 149               	.LM26:
+ 150 0060 0895      		ret
+ 151               	.LFE5:
+ 153               	.global	main
+ 155               	main:
+ 156               	.LFB6:
+ 157               	.LM27:
+ 158 0062 CF93      		push r28
+ 159 0064 DF93      		push r29
+ 160               	/* prologue: function */
+ 161               	/* frame size = 0 */
+ 162               	.LM28:
+ 163 0066 8E9A      		sbi 49-32,6
+ 164               	.LM29:
+ 165 0068 8D9A      		sbi 49-32,5
+ 166               	.LM30:
+ 167 006a 8B98      		cbi 49-32,3
+ 168               	.LM31:
+ 169 006c 939A      		sbi 50-32,3
+ 170               	.LBB24:
+ 171               	.LBB25:
+ 172               	.LM32:
+ 173 006e 969A      		sbi 50-32,6
+ 174               	.LM33:
+ 175 0070 959A      		sbi 50-32,5
+ 176 0072 80E0      		ldi r24,lo8(0)
+ 177 0074 90E0      		ldi r25,hi8(0)
+ 178               	.LVL6:
+ 179 0076 00C0      		rjmp .L26
+ 180               	.LVL7:
+ 181               	.L18:
+ 182 0078 80E0      		ldi r24,lo8(0)
+ 183 007a 90E0      		ldi r25,hi8(0)
+ 184               	.L25:
+ 185               	.LBE25:
+ 186               	.LBE24:
+ 187               	.LM34:
+ 188 007c 8399      		sbic 48-32,3
+ 189 007e 00C0      		rjmp .L15
+ 190               	.LM35:
+ 191 0080 00D0      		rcall resetPressed
+ 192               	.LVL8:
+ 193 0082 00C0      		rjmp .L16
+ 194               	.LVL9:
+ 195               	.L15:
+ 196               	.LM36:
+ 197 0084 0097      		sbiw r24,0
+ 198 0086 01F4      		brne .L17
+ 199               	.L16:
+ 200               	.LM37:
+ 201 0088 4599      		sbic 40-32,5
+ 202 008a 00C0      		rjmp .L18
+ 203 008c 81E0      		ldi r24,lo8(1)
+ 204 008e 90E0      		ldi r25,hi8(1)
+ 205               	.L26:
+ 206 0090 C0E0      		ldi r28,lo8(0)
+ 207 0092 D0E0      		ldi r29,hi8(0)
+ 208 0094 00C0      		rjmp .L25
+ 209               	.L17:
+ 210               	.LM38:
+ 211 0096 8130      		cpi r24,1
+ 212 0098 9105      		cpc r25,__zero_reg__
+ 213 009a 01F4      		brne .L19
+ 214               	.LM39:
+ 215 009c 459B      		sbis 40-32,5
+ 216 009e 00C0      		rjmp .L20
+ 217 00a0 80E0      		ldi r24,lo8(0)
+ 218 00a2 90E0      		ldi r25,hi8(0)
+ 219 00a4 00C0      		rjmp .L21
+ 220               	.L20:
+ 221               	.LM40:
+ 222 00a6 27E2      		ldi r18,hi8(10001)
+ 223 00a8 C131      		cpi r28,lo8(10001)
+ 224 00aa D207      		cpc r29,r18
+ 225 00ac 04F0      		brlt .L21
+ 226               	.LBB26:
+ 227               	.LBB27:
+ 228               	.LM41:
+ 229 00ae 9698      		cbi 50-32,6
+ 230               	.LM42:
+ 231 00b0 9598      		cbi 50-32,5
+ 232 00b2 82E0      		ldi r24,lo8(2)
+ 233 00b4 90E0      		ldi r25,hi8(2)
+ 234               	.L21:
+ 235               	.LBE27:
+ 236               	.LBE26:
+ 237               	.LM43:
+ 238 00b6 2196      		adiw r28,1
+ 239 00b8 00C0      		rjmp .L25
+ 240               	.L19:
+ 241               	.LM44:
+ 242 00ba 8230      		cpi r24,2
+ 243 00bc 9105      		cpc r25,__zero_reg__
+ 244 00be 01F4      		brne .L25
+ 245               	.LM45:
+ 246 00c0 459B      		sbis 40-32,5
+ 247 00c2 00C0      		rjmp .L25
+ 248               	.LBB28:
+ 249               	.LBB29:
+ 250               	.LM46:
+ 251 00c4 969A      		sbi 50-32,6
+ 252               	.LM47:
+ 253 00c6 959A      		sbi 50-32,5
+ 254 00c8 00C0      		rjmp .L18
+ 255               	.LBE29:
+ 256               	.LBE28:
+ 257               	.LFE6:
+ 315               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\Dpn\AppData\Local\Temp/ccpqFMbb.s:2      *ABS*:0000003f __SREG__
+C:\Users\Dpn\AppData\Local\Temp/ccpqFMbb.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Dpn\AppData\Local\Temp/ccpqFMbb.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Dpn\AppData\Local\Temp/ccpqFMbb.s:5      *ABS*:00000034 __CCP__
+C:\Users\Dpn\AppData\Local\Temp/ccpqFMbb.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Dpn\AppData\Local\Temp/ccpqFMbb.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Dpn\AppData\Local\Temp/ccpqFMbb.s:18     .text:00000000 delay_ms
+C:\Users\Dpn\AppData\Local\Temp/ccpqFMbb.s:70     .text:00000038 switchOn
+C:\Users\Dpn\AppData\Local\Temp/ccpqFMbb.s:86     .text:0000003e switchOff
+C:\Users\Dpn\AppData\Local\Temp/ccpqFMbb.s:102    .text:00000044 resetPressed
+C:\Users\Dpn\AppData\Local\Temp/ccpqFMbb.s:155    .text:00000062 main
+
+NO UNDEFINED SYMBOLS
